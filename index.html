@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Confetti Fireworks</title>
+  <style>
+    .title-button {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 5rem;
+      font-weight: bold;
+      letter-spacing: 0.02em;
+      text-align: center;
+      color: transparent;
+      background: linear-gradient(180deg, #111 60%, #f5b030 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      filter: drop-shadow(0 2px 8px rgba(255, 0, 0, 0.12));
+      animation: title-fade-in 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="">
+    <h1 class="title">Thanks for your wishes!</h1>
+    <button class="title-button" id="confettiBtn" hidden>Click Here</button>
+  </div>
+
+  <script>
+    function fireConfetti() {
+      const duration = 5 * 1000;
+      const animationEnd = Date.now() + duration;
+      const defaults = {
+        startVelocity: 50,
+        spread: 360,
+        ticks: 100,
+        zIndex: 0,
+      };
+
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      const interval = setInterval(() => {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+          clearInterval(interval);
+          return;
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+
+        confetti({
+          ...defaults,
+          particleCount,
+          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+        });
+
+        confetti({
+          ...defaults,
+          particleCount,
+          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+        });
+      }, 250);
+    }
+
+    // Auto fire every second (same as useEffect)
+    setInterval(() => {
+      fireConfetti();
+    }, 1000);
+
+    // Optional manual trigger
+    document.getElementById("confettiBtn").addEventListener("click", fireConfetti);
+
+  </script>
+
+</body>
+
+</html>
