@@ -28,6 +28,120 @@
       filter: drop-shadow(0 2px 8px rgba(255, 0, 0, 0.12));
       animation: title-fade-in 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
+    /* Spotlight Effect Styles */
+    .spotlight-container {
+      position: relative;
+      display: flex;
+      height: 40rem;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 0.375rem;
+      background-color: rgba(0, 0, 0, 0.96);
+      -webkit-font-smoothing: antialiased;
+      z-index: 1;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+
+    @media (min-width: 768px) {
+      .spotlight-container {
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .spotlight-grid {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      background-size: 40px 40px;
+      user-select: none;
+      background-image:
+        linear-gradient(to right, #171717 1px, transparent 1px),
+        linear-gradient(to bottom, #171717 1px, transparent 1px);
+    }
+
+    .spotlight-svg-wrapper {
+      position: absolute;
+      top: -10rem;
+      /* -top-40 (40 * 0.25rem = 10rem) */
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      pointer-events: none;
+      z-index: 1;
+      animation: spotlight-anim 2s ease-out forwards;
+      opacity: 0;
+    }
+
+    @media (min-width: 768px) {
+      .spotlight-svg-wrapper {
+        top: -5rem;
+        /* -top-20 */
+        left: 15rem;
+        /* left-60 */
+        width: 84%;
+        height: 169%;
+        transform: none;
+        /* Remove the rotation */
+        opacity: 1;
+        /* Animation handles the initial opacity */
+      }
+    }
+
+    .spotlight-content {
+      position: relative;
+      z-index: 10;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 80rem;
+      padding: 1rem;
+      padding-top: 5rem;
+    }
+
+    @media (min-width: 768px) {
+      .spotlight-content {
+        padding-top: 0;
+      }
+    }
+
+    .spotlight-heading {
+      background-image: linear-gradient(to bottom, #fafafa, #a3a3a3);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-align: center;
+      font-size: 2.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    @media (min-width: 768px) {
+      .spotlight-heading {
+        font-size: 4.5rem;
+      }
+    }
+
+    .spotlight-description {
+      margin: 1rem auto 0;
+      max-width: 32rem;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #d4d4d4;
+    }
+
+    @keyframes spotlight-anim {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -35,9 +149,44 @@
 
 <body>
 
-  <div class="">
-    <h1 class="title">Thanks for your wishes!</h1>
-    <button class="title-button" id="confettiBtn" hidden>Click Here</button>
+  <!-- Full Screen Spotlight + Confetti Container -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* Ensure body doesn't scroll */
+  </style>
+  <div class="spotlight-container" style="height: 100vh; margin-top: 0;">
+    <div class="spotlight-grid"></div>
+
+
+    <div class="spotlight-content">
+      <h1 class="spotlight-heading">
+        Thanks for your wishes
+      </h1>
+
+      <!-- Button kept hidden as per previous state/reference image -->
+      <div style="margin-top: 2rem; display: flex; justify-content: center;">
+        <button class="title-button" id="confettiBtn" style="
+          pointer-events: auto;
+          cursor: pointer;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: white;
+          padding: 12px 24px;
+          font-size: 1.1rem;
+          border-radius: 8px;
+          transition: all 0.2s;
+        " onmouseover="this.style.background='rgba(255,255,255,0.2)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.1)'" hidden>
+          Celebrate
+        </button>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -48,7 +197,7 @@
         startVelocity: 50,
         spread: 360,
         ticks: 100,
-        zIndex: 0,
+        zIndex: 50,
       };
 
       function randomInRange(min, max) {
