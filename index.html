@@ -12,7 +12,7 @@
 
     .title {
       position: absolute;
-      top: 40%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       font-size: 5rem;
@@ -27,6 +27,10 @@
       text-fill-color: transparent;
       filter: drop-shadow(0 2px 8px rgba(255, 0, 0, 0.12));
       animation: title-fade-in 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .D {
+      margin-top: -50px;
     }
 
     /* Spotlight Effect Styles */
@@ -111,15 +115,14 @@
       -webkit-background-clip: text;
       color: transparent;
       text-align: center;
-      font-size: 9.5rem;
+      font-size: 2.25rem;
       font-weight: 700;
-      line-height: 1.2;
+
     }
 
     @media (min-width: 768px) {
       .spotlight-heading {
-        text-align:center;
-        font-size: 9.5rem;
+        font-size: 4.5rem;
       }
     }
 
@@ -167,7 +170,10 @@
 
     <div class="spotlight-content">
       <h1 class="spotlight-heading">
-        Thanks for your wishes
+        Thank you
+      </h1>
+      <h1 class="spotlight-heading D">
+        for your wishes
       </h1>
 
       <!-- Button kept hidden as per previous state/reference image -->
@@ -242,6 +248,3 @@
 </body>
 
 </html>
-
-
-
